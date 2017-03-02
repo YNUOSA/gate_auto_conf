@@ -1,0 +1,14 @@
+[
+  {
+    "domain": "test1.ynuosa.org",
+    "listen_port": 8080,
+    "dst": "http://113.55.13.84:80",
+    "remark": "test config 1"
+  },
+  {
+    "domain": "test2.ynuosa.org",
+    "listen_port": 8081,
+    "dst": "http://113.55.13.84:81",
+    "remark": "test config 2"
+  }
+]
