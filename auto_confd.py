@@ -33,14 +33,14 @@ def main():
     from time import sleep
     try:
         sys.stdout.write("[%s]:auto config start" % (time.strftime('%Y-%m-%d %H%M%S', time.localtime(time.time()))))
-        commands.getstatusoutput("bash rebuild.sh")
+        commands.getstatusoutput("sudo bash rebuild.sh")
         nginx_time = os.stat("nginx.json").st_mtime
         rinetd_time = os.stat("rinetd.json").st_mtime
         logging.debug("[%s]:first building succeed!" % (time.strftime('%Y-%m-%d %H%M%S', time.localtime(time.time()))))
         while 1:
             sleep(30)
             if os.stat("nginx.json").st_mtime != nginx_time or os.stat("rinetd.json").st_mtime != rinetd_time:
-                commands.getstatusoutput("bash rebuild.sh")
+                commands.getstatusoutput("sudo bash rebuild.sh")
                 nginx_time = os.stat("nginx.json").st_mtime
                 rinetd_time = os.stat("rinetd.json").st_mtime
                 logging.debug(
