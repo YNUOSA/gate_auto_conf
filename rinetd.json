@@ -1,16 +1,9 @@
 [
   {
-    "bindaddress": "1.1.1.1",
-    "bindport": 1,
-    "connectaddress": "2.2.2.2",
-    "connectport": 2,
-    "remark": "test1"
-  },
-  {
-    "bindaddress": "3.3.3.3",
-    "bindport": 3,
-    "connectaddress": "4.4.4.4",
-    "connectport": 4,
-    "remark": "test2"
+    "bindaddress": "0.0.0.0",
+    "bindport": 22,
+    "connectaddress": "113.55.13.74",
+    "connectport": 22,
+    "remark": "gitlab"
   }
 ]

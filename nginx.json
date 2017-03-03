@@ -1,14 +1,62 @@
 [
   {
-    "domain": "test1.ynuosa.org",
-    "listen_port": 8088,
-    "dst": "http://113.55.13.84:80",
-    "remark": "test config 1"
+    "domain": "mirrors.opensource.ynu.edu.cn",
+    "listen_port": 80,
+    "dst": "http://113.55.13.84:8088",
+    "remark": "mirrors.opensource.ynu.edu.cn"
   },
   {
-    "domain": "test2.ynuosa.org",
-    "listen_port": 8081,
-    "dst": "http://113.55.13.84:81",
-    "remark": "test config 2"
+    "domain": "notebook.opensource.ynu.edu.cn",
+    "listen_port": 8000,
+    "dst": "http://113.55.13.75:8000",
+    "remark": "ipytyon notebook multiuser"
+  },
+  {
+    "domain": "solidoc.ynu.edu.cn",
+    "listen_port": 80,
+    "dst": "http://202.203.209.11:80",
+    "remark": "solidoc.ynu.edu.cn"
+  },
+  {
+    "domain": "solidoc.ynu.edu.cn",
+    "listen_port": 443,
+    "dst": "https://202.203.209.11:443",
+    "remark": "solidoc.ynu.edu.cn https"
+  },
+  {
+    "domain": "pan.ynu.edu.cn",
+    "listen_port": 80,
+    "dst": "http://202.203.209.11:80",
+    "remark": "pan.ynu.edu.cn"
+  },
+  {
+    "domain": "pan.ynu.edu.cn",
+    "listen_port": 443,
+    "dst": "https://202.203.209.11:443",
+    "remark": "pan.ynu.edu.cn https"
+  },
+  {
+    "domain": "pypi.mirrors.opensource.ynu.edu.cn",
+    "listen_port": 80,
+    "dst": "http://113.55.13.73:80",
+    "remark": "pypi.mirrors.opensource.ynu.edu.cn"
+  },
+  {
+    "domain": "gitlab.ynuosa.org",
+    "listen_port": 80,
+    "dst": "http://113.55.13.74:80",
+    "remark": "gitlab.ynuosa.org"
+  },
+  {
+    "domain": "cacti.opensource.ynu.edu.cn",
+    "listen_port": 80,
+    "dst": "http://113.55.13.77:80",
+    "remark": "cacti.opensource.ynu.edu.cn"
+  },
+  {
+    "domain": "mirrors.ynuosa.org",
+    "listen_port": 80,
+    "dst": "http://113.55.13.84:8088",
+    "remark": "mirrors.ynuosa.org"
   }
 ]
