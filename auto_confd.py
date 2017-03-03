@@ -47,6 +47,7 @@ def main():
                     "[%s]:rebuilding succeed!" % (time.strftime('%Y-%m-%d %H%M%S', time.localtime(time.time()))))
 
     except Exception, e:
+        logging.debug(str(e.message))
         logging.debug("error while rebuilding\n")
 
 
