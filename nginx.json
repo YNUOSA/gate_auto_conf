@@ -24,6 +24,12 @@
     "remark": "solidoc.ynu.edu.cn https"
   },
   {
+    "domain": "cloud2.ynu.edu.cn",
+    "listen_port": 443,
+    "dst": "https://113.55.12.188:443",
+    "remark": "cloud2gi.ynu.edu.cn https"
+  },
+  {
     "domain": "pan.ynu.edu.cn",
     "listen_port": 80,
     "dst": "http://202.203.209.11:80",
