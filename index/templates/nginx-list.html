@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nginx Rules List</title>
+</head>
+<body>
+<h1>Nginx Rules List</h1>
+<div>
+    <table>
+        <thead align="left">
+        <tr>
+            <th>from</th>
+            <th></th>
+            <th>to</th>
+            <th>remark</th>
+            <th colspan="2">operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in rule_list %}
+        <tr>
+            <td>{{ item.domain }}:{{item.listen_port}}</td>
+            <td>&nbsp=>&nbsp</td>
+            <td>{{item.dst}}</td>
+            <td>{{item.remark}}</td>
+            <td><a href="nginx-edit?domain={{item.domain}}">edit</a></td>
+            <td><a href="nginx-delete?domain={{item.domain}}">delete</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        <td><a href="nginx-add">add</a></td>
+    </table>
+</div>
+</body>
+</html>

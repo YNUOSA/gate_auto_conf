@@ -22,7 +22,10 @@ def daemonize():
     try:
         pid = os.fork()
         if pid > 0:
-            logging.debug("pid: %d" % pid)
+            # logging.debug("pid: %d" % pid)
+            f = open('pid', 'w')
+            f.write("%d" % pid)
+            f.close()
             sys.exit()
     except OSError, e:
         logging.debug("2nd fork failed: %d %s\n" % (e.errno, e.strerror))
