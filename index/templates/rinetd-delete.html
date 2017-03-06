@@ -7,15 +7,11 @@
 <body>
 <h3>Delete this rule ? </h3>
 <form action="/rinetd-delete" method="post">
-    <a style="color: red">{{bindaddress}}:{{bindport}} => {{connectaddress}}:{{connectport}}</a>
-    <input type="text" name="bindaddress" id="bindaddress"
-           value="{{bindaddress}}" readonly="readonly"
-           style="visibility: hidden">
-    <input type="text" name="bindport" id="bindport" value="{{bindport}}" value="{{bindport}}"
-           style="visibility: hidden">
+    <a style="color: red">{{item.bindaddress}}:{{item.bindport}} => {{item.connectaddress}}:{{item.connectport}}</a>
+    <input type="text" name="id" id="id" value="{{item.id}}" readonly="readonly" style="visibility: hidden;">
     <br>
     <button type="submit">Yes</button>
 </form>
-<button onClick="window.location.href='/nginx-list'">No</button>
+<button onClick="window.location.href='/rinetd-list'">No</button>
 </body>
 </html>

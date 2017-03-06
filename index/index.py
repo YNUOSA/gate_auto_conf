@@ -43,11 +43,31 @@ def save_nginx_conf(idd, domain, listen_port, dst, remark):
     return render_template('succeed.html', msg='add succeed!')
 
 
-def save_rinetd_conf(bindaddress, bindport, connectaddress, connectport):
-    jo = sortbyKey(json.load(open('../rinetd.json')), bindaddress)
-    # for item in jo:
-    # if item['bindaddress']
-    return ''
+def save_rinetd_conf(idd, bindaddress, bindport, connectaddress, connectport):
+    jo = sortbyKey(json.load(open('../rinetd.json')), 'bindaddress')
+    for item in jo:
+        if str(item['id']) == idd:
+            item['bindaddress'] = bindaddress
+            item['bindport'] = bindport
+            item['connectaddress'] = connectaddress
+            item['connectport'] = connectport
+            jo = sortbyKey(jo, 'bindaddress')
+            i = 0
+            for item in jo:
+                item['id'] = i
+                i += 1
+            open('../rinetd.json', 'w').write(json.dumps(jo))
+            return render_template('succeed.html', msg='succeed!')
+    tmp = {'bindaddress': bindaddress, 'bindport': bindport, 'connectaddress': connectaddress,
+           'connectport': connectport}
+    jo.append(tmp)
+    jo = sortbyKey(jo, 'bindaddress')
+    i = 0
+    for item in jo:
+        item['id'] = i
+        i += 1
+    open('../rinetd.json', 'w').write(json.dumps(jo))
+    return render_template('succeed.html', msg='succeed!')
 
 
 @app.route('/')
@@ -108,7 +128,7 @@ def nginx_delete():
 def nginx_save():
     if request.method == 'POST':
         # doamin listen_port dst remark]
-        return save_nginx_conf(request.form['id'], request.form['domain'], request.form['listen_port'],
+        return save_rinetd_conf(request.form['id'], request.form['domain'], request.form['listen_port'],
                                request.form['dst'], request.form['remark'])
 
 
@@ -122,14 +142,12 @@ def rinetd_list():
 def rinetd_edit():
     jo = sortbyKey(json.load(open('../rinetd.json')), 'connectaddress')
     for item in jo:
-        if item['bindaddress'] == request.args.get('bindaddress') and str(item['bindport']) == request.args.get(
-                'bindport'):
+        if str(item['id']) == request.args.get('id'):
             return render_template('rinetd-edit.html', bindaddress=item['bindaddress'], bindport=item['bindport'],
                                    connectaddress=item['connectaddress'], connectport=item['connectport'],
-                                   remark=item['remark'], edit='%s:%s => %s:%s' % (
+                                   remark=item['remark'], id=item['id'], edit='%s:%s => %s:%s' % (
                     item['bindaddress'], item['bindport'], item['connectaddress'], item['connectport']))
-    return render_template('rinetd-edit.html', bindaddress=request.args.get('bindaddress'),
-                           bindport=request.args.get('bindport'), add='new rule')
+    return render_template('rinetd-edit.html', add='new rule')
 
 
 @app.route('/rinetd-add')
@@ -143,17 +161,17 @@ def rinetd_delete():
     if request.method == 'GET':
         jo = sortbyKey(json.load(open('../rinetd.json')), 'connectaddress')
         for item in jo:
-            if item['bindaddress'] == request.args.get('bindaddress') and str(item['bindport']) == request.args.get(
-                    'bindport'):
-                return render_template('rinetd-delete.html', bindaddress=item['bindaddress'],
-                                       bindport=item['bindport'],
-                                       connectaddress=item['connectaddress'], connectport=item['connectport'])
+            if str(item['id']) == request.args.get('id'):
+                return render_template('rinetd-delete.html', item=item)
     if request.method == 'POST':
         jo = sortbyKey(json.load(open('../rinetd.json')), 'bindaddress')
         for item in jo:
-            if item['bindaddress'] == request.form['bindaddress'] and str(item['bindport']) == request.form[
-                'bindport']:
+            if str(item['id']) == request.form['id']:
                 jo.remove(item)
+                i = 0
+                for item in jo:
+                    item['id'] = i
+                    i += 1
             open('../rinetd.json', 'w').write(json.dumps(jo))
             return render_template('succeed.html', msg='del succeed!')
         return 'rule not exist'
@@ -162,9 +180,8 @@ def rinetd_delete():
 @app.route('/rinetd-save', methods=['GET', 'POST'])
 def rinetd_save():
     if request.method == 'POST':
-        # doamin listen_port dst remark
-        return save_rinetd_conf(request.form['domain'], request.form['listen_port'], request.form['dst'],
-                                request.form['remark'])
+        return save_rinetd_conf(request.form['id'], request.form['bindaddress'], request.form['bindport'],
+                                request.form['connectaddress'], request.form['connectport'])
 
 
 @app.route('/log')

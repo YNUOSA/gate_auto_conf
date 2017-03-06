@@ -24,8 +24,8 @@
             <td>{{ item.bindaddress }}:{{ item.bindport }}</td>
             <td>=></td>
             <td>{{ item.connectaddress }}:{{ item.connectport }}</td>
-            <td><a href="rinetd-edit?bindaddress={{ item.bindaddress }}&bindport={{ item.bindport }}">edit</a></td>
-            <td><a href="rinetd-delete?bindaddress={{ item.bindaddress }}&bindport={{ item.bindport }}">delete</a></td>
+            <td><a href="rinetd-edit?id={{item.id}}">edit</a></td>
+            <td><a href="rinetd-delete?id={{item.id}}">delete</a></td>
         </tr>
         {% endfor %}
         </tbody>
