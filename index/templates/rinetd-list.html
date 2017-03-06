@@ -5,6 +5,34 @@
     <title>rinetd Rules List</title>
 </head>
 <body>
+<h1>rinetd Rules List</h1>
+<div>
+    <table>
+        <thead align="left">
+        <tr>
+            <th>id</th>
+            <th>bind</th>
+            <th></th>
+            <th>connect</th>
+            <th colspan="2">operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in rule_list %}
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{ item.bindaddress }}:{{ item.bindport }}</td>
+            <td>=></td>
+            <td>{{ item.connectaddress }}:{{ item.connectport }}</td>
+            <td><a href="rinetd-edit?bindaddress={{ item.bindaddress }}&bindport={{ item.bindport }}">edit</a></td>
+            <td><a href="rinetd-delete?bindaddress={{ item.bindaddress }}&bindport={{ item.bindport }}">delete</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        <td><a href="rinetd-add">add</a></td>
+    </table>
+    <a href="/">back to home</a>
 
+</div>
 </body>
 </html>

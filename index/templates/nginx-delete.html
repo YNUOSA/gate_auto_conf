@@ -7,9 +7,10 @@
 <body>
 <h3>Delete this rule ? </h3>
 <form action="/nginx-delete" method="post">
-    <input type="text" name="domain" id="domain" value="{{domain}}" readonly="readonly"><br>
+    <a style="color: red">{{item.domain}}:{{item.listen_port}}</a>
+    <input type="text" name="id" id="id" readonly="readonly" style="visibility: hidden;" value="{{item.id}}"><br>
     <button type="submit">Yes</button>
-    <button onclick="function(){history.go(-1)}">No</button>
 </form>
+<button onClick="window.location.href='/nginx-list'">No</button>
 </body>
 </html>
