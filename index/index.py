@@ -128,8 +128,8 @@ def nginx_delete():
 def nginx_save():
     if request.method == 'POST':
         # doamin listen_port dst remark]
-        return save_rinetd_conf(request.form['id'], request.form['domain'], request.form['listen_port'],
-                               request.form['dst'], request.form['remark'])
+        return save_nginx_conf(request.form['id'], request.form['domain'], request.form['listen_port'],
+                                request.form['dst'], request.form['remark'])
 
 
 @app.route('/rinetd-list')
@@ -172,8 +172,8 @@ def rinetd_delete():
                 for item in jo:
                     item['id'] = i
                     i += 1
-            open('../rinetd.json', 'w').write(json.dumps(jo))
-            return render_template('succeed.html', msg='del succeed!')
+                open('../rinetd.json', 'w').write(json.dumps(jo))
+                return render_template('succeed.html', msg='del succeed!')
         return 'rule not exist'
 
 
