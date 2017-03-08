@@ -1,16 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Delete rule</title>
-</head>
-<body>
-<h3>Delete this rule ? </h3>
-<form action="/nginx-delete" method="post">
-    <a style="color: red">{{item.domain}}:{{item.listen_port}} => {{item.dst}}</a>
-    <input type="text" name="id" id="id" readonly="readonly" style="visibility: hidden;" value="{{item.id}}"><br>
-    <button type="submit">Yes</button>
-</form>
-<button onClick="window.location.href='/nginx-list'">No</button>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}delete nginx rule{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"><h2>delete rule?</h2>
+                <h4 style="color: red">{{ item.domain }}:{{ item.listen_port }} => {{ item.dst }}</h4></div>
+        </div>
+        <form method="post">
+            <div style="visibility: hidden;">
+                <input type="text" name="id" value="{{ item.id }}">
+            </div>
+            <div class="row">
+                <div class="col-sm-3 col-xs-6">
+                    <button class="btn btn-default btn-block btn-success" type="submit">Yes</button>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <button class="btn btn-default btn-block btn-danger ">No</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

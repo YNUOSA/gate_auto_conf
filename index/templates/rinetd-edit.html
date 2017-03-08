@@ -1,26 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Nginx Rule Edit</title>
-</head>
-<body>
-<h1>rinetd Rule Edit</h1>
-{% if add %}
-<h3>add rule : <a style="color: red;">{{add}}</a></h3>
-{% else %}
-<h3>change rule : <a style="color: red;">{{edit}}</a></h3>
-{% endif %}
-<form action="rinetd-save" method="post">
-    <a>bindaddress:</a><input type="text" name="bindaddress" id="bindaddress" value="{{bindaddress}}"><br>
-    <a>bindport:</a><input type="text" name="bindport" id="bindport" value="{{bindport}}"><br>
-    <a>connectaddress:</a><input type="text" name="connectaddress" id="connectaddress" value="{{connectaddress}}"><br>
-    <a>connectport:</a><input type="text" name="connectport" id="connectport" value="{{connectport}}"><br>
-    <a>remark:</a><input type="text" name="remark" id="remark" value="{{remark}}"><br>
-    <input type="text" name="id" id="id" value="{{id}}" readonly="readonly" style="visibility: hidden;"><br>
-    <button type="submit">Save</button>
-</form>
-<a href="/">back to home</a>
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}
+    rinetd Rule Edit
+{% endblock %}
+{% block content %}
+    <div class="container">
+        {{ wtf.quick_form(form,action='/rinetd-save') }}
+    </div>
+{% endblock %}
 
-</body>
-</html>

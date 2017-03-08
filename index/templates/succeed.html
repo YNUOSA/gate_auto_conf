@@ -1,12 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Succeed!</title>
-</head>
-<body>
-{{msg}}
-<br>
-<a href="/">back to home</a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>{{ msg }}</h1>
+                <p>{{ msgdetail }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 col-xs-6">
+                <a href="/" class="btn btn-default btn-info btn-block">back to home</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

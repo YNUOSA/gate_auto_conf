@@ -1,40 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Nginx Rules List</title>
-</head>
-<body>
-<h1>Nginx Rules List</h1>
-<div>
-    <table>
-        <thead align="left">
-        <tr>
-            <th>id</th>
-            <th>from</th>
-            <th></th>
-            <th>to</th>
-            <th>remark</th>
-            <th colspan="2">operation</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in rule_list %}
-        <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.domain }}:{{item.listen_port}}</td>
-            <td>&nbsp=>&nbsp</td>
-            <td>{{item.dst}}</td>
-            <td>{{item.remark}}</td>
-            <td><a href="nginx-edit?id={{item.id}}">edit</a></td>
-            <td><a href="nginx-delete?id={{item.id}}">delete</a></td>
-        </tr>
-        {% endfor %}
-        </tbody>
-        <td><a href="nginx-add">add</a></td>
-    </table>
-    <a href="/">back to home</a>
-
-</div>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}nginx rules list{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr class="row">
+                            <th>From</th>
+                            <th>To</th>
+                            <th colspan="2" class="">Operate</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in rule_list %}
+                            <tr class="row">
+                                <td>{{ item.domain }}:{{ item.listen_port }}</td>
+                                <td>{{ item.dst }}</td>
+                                <td>
+                                    <button class="btn btn-info"
+                                            onclick="window.location.href='/nginx-edit?id={{ item.id }}'">
+                                        Edit
+                                    </button>
+                                    <button class="btn btn-danger"
+                                            onclick="window.location.href='/nginx-delete?id={{ item.id }}'">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!-- row -->
+        <div class="row">
+            <div class="col-sm-3 col-xs-6">
+                <a href="/nginx-add" class="btn btn-default btn-success">add</a>
+            </div>
+        </div>
+    </div> <!-- container -->
+{% endblock %}

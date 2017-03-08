@@ -1,10 +1,1 @@
-[
-  {
-    "remark": "gitlab",
-    "bindaddress": "0.0.0.0",
-    "connectport": "23",
-    "connectaddress": "113.55.13.74",
-    "bindport": "22",
-    "id": 0
-  }
-]
+[{"remark": "gitlab", "bindaddress": "0.0.0.0", "connectport": "22", "connectaddress": "113.55.13.74", "bindport": "22", "id": 0}]
