@@ -3,7 +3,8 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, validators, DecimalField, HiddenField
-
+from flask_httpauth import HTTPBasicAuth
+from hashlib import md5
 import logging, json
 
 
@@ -24,6 +25,8 @@ class rinetdForm(FlaskForm):
     connectport = IntegerField('connectport', [validators.DataRequired(), validators.NumberRange(min=0, max=65535)])
     submit = SubmitField('Save')
 
+
+auth = HTTPBasicAuth()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'what a testing project'
@@ -95,7 +98,16 @@ def save_rinetd_conf(idd, bindaddress, bindport, connectaddress, connectport):
     return render_template('succeed.html', msg='succeed!')
 
 
+@auth.verify_password
+def verify_passwd(username, password):
+    if username == 'root' and md5(password).hexdigest() == open('user').read():
+        return True
+    else:
+        return False
+
+
 @app.route('/')
+@auth.login_required
 def index():
     nv = []
     nv.append({'href': '/nginx-list', 'caption': 'View nginx Rules'})
@@ -104,12 +116,15 @@ def index():
 
 
 @app.route('/nginx-list')
+@auth.login_required
+
 def nginx_list():
     jo = sortbyKey(json.load(open('../nginx.json')), 'id')
     return render_template('nginx-list.html', rule_list=jo)
 
 
 @app.route('/nginx-edit', methods=['GET'])
+@auth.login_required
 def nginx_edit():
     jo = sortbyKey(json.load(open('../nginx.json')), 'domain')
     ngf = nginxForm()
@@ -127,12 +142,14 @@ def nginx_edit():
 
 
 @app.route('/nginx-add')
+@auth.login_required
 def nginx_add():
     form = nginxForm()
     return render_template('nginx-edit.html', form=form)
 
 
 @app.route('/nginx-delete', methods=['GET', 'POST'])
+@auth.login_required
 def nginx_delete():
     if request.method == 'GET':
         if request.args.get('id'):
@@ -155,6 +172,7 @@ def nginx_delete():
 
 
 @app.route('/nginx-save', methods=['GET', 'POST'])
+@auth.login_required
 def nginx_save():
     if request.method == 'POST':
         form = nginxForm()
@@ -169,12 +187,14 @@ def nginx_save():
 
 
 @app.route('/rinetd-list')
+@auth.login_required
 def rinetd_list():
     jo = sortbyKey(json.load(open('../rinetd.json')), 'connectaddress')
     return render_template('rinetd-list.html', rule_list=jo)
 
 
 @app.route('/rinetd-edit', methods=['GET'])
+@auth.login_required
 def rinetd_edit():
     jo = sortbyKey(json.load(open('../rinetd.json')), 'connectaddress')
     for item in jo:
@@ -190,11 +210,14 @@ def rinetd_edit():
 
 
 @app.route('/rinetd-add')
+@auth.login_required
 def rinetd_add():
-    return render_template('rinetd-edit.html', add='new rule')
+    form = rinetdForm()
+    return render_template('rinetd-edit.html', form=form)
 
 
 @app.route('/rinetd-delete', methods=['GET', 'POST'])
+@auth.login_required
 def rinetd_delete():
     # return ''
     if request.method == 'GET':
@@ -217,6 +240,7 @@ def rinetd_delete():
 
 
 @app.route('/rinetd-save', methods=['GET', 'POST'])
+@auth.login_required
 def rinetd_save():
     if request.method == 'POST':
         form = rinetdForm()
@@ -228,6 +252,7 @@ def rinetd_save():
 
 
 @app.route('/log')
+@auth.login_required
 def log():
     return open('../auto_conf.log').read().replace('\n', '<br>')
 
